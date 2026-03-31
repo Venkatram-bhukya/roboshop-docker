@@ -1,36 +1,45 @@
 services:
   catalogue:
-    build: 
-    dockerfile: catalogue.Dockerfile
+    build:
+      context: .
+      dockerfile: catalogue.Dockerfile
     image: bhukyadevops/catalogue:1.0.0
     container_name: catalogue
     depends_on:
-    - mongodb
-    user:
+      - mongodb
+
+  user:
     build:
-     dockerfile: user.Dockerfile
+      context: .
+      dockerfile: user.Dockerfile
     image: bhukyadevops/user:1.0.0
     container_name: user
     depends_on:
-    - redis
-    frontend:
-    build: 
-    dockerfile: frontend.Dockerfile
+      - redis
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
     depends_on:
-    - catalogue
-    - user
+      - catalogue
+      - user
+
   mongodb:
     build:
-    dockerfile: mongodb.Dockerfile # it moves to mongodb directory
-    image: bhukyadevops/mongodb:1.0.0 # docker build -t bhukyadevops /mongodb:1.0.0
+      context: .
+      dockerfile: mongodb.Dockerfile
+    image: bhukyadevops/mongodb:1.0.0
     container_name: mongodb
+
   redis:
     image: redis:7.0
     container_name: redis
+
 networks:
   default:
     driver: bridge
     name: roboshop
-    external: false # if true, you need to create network manually 
+    external: false
