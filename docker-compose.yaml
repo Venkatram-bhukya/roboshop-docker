@@ -1,45 +1,35 @@
 services:
   catalogue:
-    build:
-      context: .
-      dockerfile: catalogue.Dockerfile
+    build: ./catalogue
     image: bhukyadevops/catalogue:1.0.0
     container_name: catalogue
     depends_on:
-      - mongodb
+    - mongodb
 
   user:
-    build:
-      context: .
-      dockerfile: user.Dockerfile
+    build: ./user
     image: bhukyadevops/user:1.0.0
     container_name: user
     depends_on:
-      - redis
+    - redis
+    - mongodb
 
-  frontend:
-    build:
-      context: .
-      dockerfile: ./frontend.Dockerfile
+      frontend:
+    build: ./frontend
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
+    ports:
+    - "80:80"
     depends_on:
-      - catalogue
-      - user
-
+    - catalogue
+    - user
+  
   mongodb:
-    build:
-      context: .
-      dockerfile: mongodb.Dockerfile
-    image: bhukyadevops/mongodb:1.0.0
+    build: ./mongodb # it moves to mongodb directory
+    image: bhukyadevops/mongodb:1.0.0 # docker build -t joindevops/mongodb:1.0.0
     container_name: mongodb
-
+    volumes:
+    - mongodb:/data/db
   redis:
     image: redis:7.0
     container_name: redis
-
-networks:
-  default:
-    driver: bridge
-    name: roboshop
-    external: false
