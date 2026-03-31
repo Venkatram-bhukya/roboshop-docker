@@ -1,28 +1,29 @@
 services:
   catalogue:
-    build: ./catalogue
+    build: 
+    dockerfile: catalogue.Dockerfile
     image: bhukyadevops/catalogue:1.0.0
     container_name: catalogue
     depends_on:
     - mongodb
     user:
-    build: ./user
+    build:
+     dockerfile: user.Dockerfile
     image: bhukyadevops/user:1.0.0
     container_name: user
     depends_on:
     - redis
-     frontend
-    build: ./frontend
+     frontend:
+    build: 
+    dockerfile: frontend.Dockerfile
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
-    ports:
-    - "80:80"
     depends_on:
     - catalogue
     - user
-    - mongodb
   mongodb:
-    build: ./mongodb # it moves to mongodb directory
+    build:
+    dockerfile: mongodb.Dockerfile # it moves to mongodb directory
     image: bhukyadevops/mongodb:1.0.0 # docker build -tbhukyadevops /mongodb:1.0.0
     container_name: mongodb
   redis:
