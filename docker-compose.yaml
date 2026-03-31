@@ -12,7 +12,7 @@ services:
     depends_on:
     - redis
     - mongodb
-      frontend:
+    frontend:
     build: ./frontend
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
