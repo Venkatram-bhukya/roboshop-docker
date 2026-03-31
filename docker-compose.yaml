@@ -5,7 +5,6 @@ services:
     container_name: catalogue
     depends_on:
     - mongodb
-
   user:
     build: ./user
     image: bhukyadevops/user:1.0.0
@@ -13,17 +12,13 @@ services:
     depends_on:
     - redis
     - mongodb
-
       frontend:
     build: ./frontend
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
-    ports:
-    - "80:80"
     depends_on:
     - catalogue
     - user
-  
   mongodb:
     build: ./mongodb # it moves to mongodb directory
     image: bhukyadevops/mongodb:1.0.0 # docker build -t joindevops/mongodb:1.0.0
