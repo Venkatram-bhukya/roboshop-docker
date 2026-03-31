@@ -20,7 +20,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: frontend.Dockerfile
+      dockerfile: ./frontend.Dockerfile
     image: bhukyadevops/frontend:1.0.0
     container_name: frontend
     depends_on:
